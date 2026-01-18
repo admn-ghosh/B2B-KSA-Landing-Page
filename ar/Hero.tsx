@@ -30,29 +30,34 @@ const HeroAr: React.FC = () => {
 
     try {
       if (db) {
-        // Use modular addDoc and collection
+        // We write to "ksa-leads". You must update the Extension config to watch this collection.
         await addDoc(collection(db, "ksa-leads"), {
-          ...formData,
-          submittedAt: serverTimestamp(),
-          language: 'Arabic',
-          source: window.location.hostname,
+          // Extension Fields
           to: 'parimal@ghoshgroups.com',
           cc: 'admin@ghoshgroups.com',
           message: {
-            subject: `طلب عرض سعر جديد (الموقع السعودي): ${formData.companyName}`,
+            subject: `طلب عرض سعر جديد (السعودية): ${formData.companyName}`,
             html: `
-              <div dir="rtl">
-                <h3>طلب جديد من صفحة الهبوط السعودية</h3>
-                <p><strong>الاسم:</strong> ${formData.fullName}</p>
+              <div dir="rtl" style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; text-align: right;">
+                <h2 style="color: #064e3b;">طلب جديد من صفحة الهبوط السعودية</h2>
+                <hr style="border: 0; border-top: 1px solid #eee;" />
+                <p><strong>الاسم بالكامل:</strong> ${formData.fullName}</p>
                 <p><strong>الشركة:</strong> ${formData.companyName}</p>
-                <p><strong>البريد:</strong> ${formData.email}</p>
-                <p><strong>الجوال:</strong> ${formData.mobile}</p>
+                <p><strong>البريد الإلكتروني:</strong> ${formData.email}</p>
+                <p><strong>رقم الجوال:</strong> ${formData.mobile}</p>
                 <p><strong>المدينة:</strong> ${formData.projectCity}</p>
-                <p><strong>النوع:</strong> ${formData.panelType}</p>
-                <p><strong>الكمية:</strong> ${formData.areaQuantity}</p>
+                <p><strong>نوع اللوح العازل:</strong> ${formData.panelType}</p>
+                <p><strong>المساحة / الكمية:</strong> ${formData.areaQuantity || 'غير محدد'}</p>
+                <hr style="border: 0; border-top: 1px solid #eee;" />
+                <p style="font-size: 12px; color: #999;">تاريخ الإرسال: ${new Date().toLocaleString('ar-EG')}</p>
               </div>
             `
-          }
+          },
+          // Original Data Fields
+          ...formData,
+          submittedAt: serverTimestamp(),
+          language: 'Arabic',
+          source: window.location.hostname
         });
       }
 
@@ -101,7 +106,7 @@ const HeroAr: React.FC = () => {
           <div className="lg:w-1/2 w-full" id="lead-form">
             <div 
               className="bg-white shadow-xl rounded-lg border border-stone-200 p-6 md:p-8 flex flex-col justify-center"
-              style={{ minHeight: '680px' }} // Stabilizes layout to prevent CLS
+              style={{ minHeight: '680px' }}
             >
               {submitted ? (
                 <div className="text-center animate-in fade-in zoom-in duration-500">
