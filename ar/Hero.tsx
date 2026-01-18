@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { CITY_OPTIONS_AR, PANEL_OPTIONS_AR } from './constants-ar';
 import { FormData } from '../types';
+import { collection, addDoc } from 'firebase/firestore';
 import { db, serverTimestamp } from '../firebase-config';
 
 const HeroAr: React.FC = () => {
@@ -29,7 +30,8 @@ const HeroAr: React.FC = () => {
 
     try {
       if (db) {
-        await db.collection("ksa-leads").add({
+        // Use modular addDoc and collection
+        await addDoc(collection(db, "ksa-leads"), {
           ...formData,
           submittedAt: serverTimestamp(),
           language: 'Arabic',
