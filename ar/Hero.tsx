@@ -31,11 +31,12 @@ const HeroAr: React.FC = () => {
       if (db) {
         // Writing to the 'mail' collection to trigger the Firebase Email extension
         await addDoc(collection(db, "mail"), {
-          // Extension Fields (Recipients as arrays)
+          // Extension Fields
+          from: 'admin@ghoshgroups.com',
           to: ['parimal@ghoshgroups.com'],
           cc: ['admin@ghoshgroups.com'],
           message: {
-            subject: `طلب عرض سعر جديد (السعودية): ${formData.companyName}`,
+            subject: 'New Lead from KSA Landing Page (Arabic)',
             html: `
               <div dir="rtl" style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; text-align: right;">
                 <h2 style="color: #064e3b;">طلب جديد من صفحة الهبوط السعودية</h2>
@@ -52,14 +53,16 @@ const HeroAr: React.FC = () => {
               </div>
             `
           },
-          // Original Data Fields preserved for records
-          fullName: formData.fullName,
-          companyName: formData.companyName,
-          leadEmail: formData.email,
-          mobile: formData.mobile,
-          projectCity: formData.projectCity,
-          panelType: formData.panelType,
-          areaQuantity: formData.areaQuantity,
+          // Record Data
+          leadData: {
+            fullName: formData.fullName,
+            companyName: formData.companyName,
+            email: formData.email,
+            mobile: formData.mobile,
+            projectCity: formData.projectCity,
+            panelType: formData.panelType,
+            areaQuantity: formData.areaQuantity
+          },
           submittedAt: serverTimestamp(),
           language: 'Arabic',
           source: window.location.hostname
