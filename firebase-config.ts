@@ -1,5 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore, serverTimestamp } from "firebase/firestore";
+// Fix for Module '"firebase/app"' has no exported member 'initializeApp'
+import { initializeApp } from 'firebase/app';
+import { getFirestore, serverTimestamp } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDldazqAxxj_4uyYQk3UdEUtdt60s0y0xs",
@@ -13,6 +14,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Export modular Firestore instance and serverTimestamp helper
+// Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
+
+// Export serverTimestamp for consistent date handling in documents
 export { serverTimestamp };
