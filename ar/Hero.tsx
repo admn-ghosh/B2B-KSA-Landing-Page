@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CITY_OPTIONS_AR, PANEL_OPTIONS_AR } from './constants-ar';
 import { FormData } from '../types';
@@ -30,11 +29,11 @@ const HeroAr: React.FC = () => {
 
     try {
       if (db) {
-        // We write to "ksa-leads". You must update the Extension config to watch this collection.
-        await addDoc(collection(db, "ksa-leads"), {
-          // Extension Fields
-          to: 'parimal@ghoshgroups.com',
-          cc: 'admin@ghoshgroups.com',
+        // Writing to the 'mail' collection to trigger the Firebase Email extension
+        await addDoc(collection(db, "mail"), {
+          // Extension Fields (Recipients as arrays)
+          to: ['parimal@ghoshgroups.com'],
+          cc: ['admin@ghoshgroups.com'],
           message: {
             subject: `طلب عرض سعر جديد (السعودية): ${formData.companyName}`,
             html: `
@@ -53,8 +52,14 @@ const HeroAr: React.FC = () => {
               </div>
             `
           },
-          // Original Data Fields
-          ...formData,
+          // Original Data Fields preserved for records
+          fullName: formData.fullName,
+          companyName: formData.companyName,
+          leadEmail: formData.email,
+          mobile: formData.mobile,
+          projectCity: formData.projectCity,
+          panelType: formData.panelType,
+          areaQuantity: formData.areaQuantity,
           submittedAt: serverTimestamp(),
           language: 'Arabic',
           source: window.location.hostname
