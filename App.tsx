@@ -1,29 +1,37 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import TopStrip from './components/TopStrip';
 import Hero from './components/Hero';
-import Features from './components/Features';
-import Certifications from './components/Certifications';
-import ProductSection from './components/ProductSection';
-import ProjectsDelivery from './components/ProjectsDelivery';
-import ProjectGallery from './components/ProjectGallery';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import StickyCTA from './components/StickyCTA';
 
-// Arabic Components
-import TopStripAr from './ar/TopStrip';
-import HeroAr from './ar/Hero';
-import FeaturesAr from './ar/Features';
-import CertificationsAr from './ar/Certifications';
-import ProductSectionAr from './ar/ProductSection';
-import ProjectsDeliveryAr from './ar/ProjectsDelivery';
-import ProjectGalleryAr from './ar/ProjectGallery';
-import TestimonialsAr from './ar/Testimonials';
-import FAQAr from './ar/FAQ';
-import FooterAr from './ar/Footer';
-import StickyCTAAr from './ar/StickyCTA';
+// Lazy load components below the fold to improve initial bundle size and TBT
+const Features = lazy(() => import('./components/Features'));
+const Certifications = lazy(() => import('./components/Certifications'));
+const ProductSection = lazy(() => import('./components/ProductSection'));
+const ProjectsDelivery = lazy(() => import('./components/ProjectsDelivery'));
+const ProjectGallery = lazy(() => import('./components/ProjectGallery'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
+const FAQ = lazy(() => import('./components/FAQ'));
+
+// Arabic Components - Lazy loaded
+const TopStripAr = lazy(() => import('./ar/TopStrip'));
+const HeroAr = lazy(() => import('./ar/Hero'));
+const FeaturesAr = lazy(() => import('./ar/Features'));
+const CertificationsAr = lazy(() => import('./ar/Certifications'));
+const ProductSectionAr = lazy(() => import('./ar/ProductSection'));
+const ProjectsDeliveryAr = lazy(() => import('./ar/ProjectsDelivery'));
+const ProjectGalleryAr = lazy(() => import('./ar/ProjectGallery'));
+const TestimonialsAr = lazy(() => import('./ar/Testimonials'));
+const FAQAr = lazy(() => import('./ar/FAQ'));
+const FooterAr = lazy(() => import('./ar/Footer'));
+const StickyCTAAr = lazy(() => import('./ar/StickyCTA'));
+
+// Loading component for Suspense
+const SectionLoader = () => (
+  <div className="py-20 flex justify-center items-center bg-stone-50">
+    <div className="w-8 h-8 border-4 border-emerald-200 border-t-emerald-700 rounded-full animate-spin"></div>
+  </div>
+);
 
 interface AppProps {
   initialLanguage?: 'en' | 'ar';
@@ -31,6 +39,7 @@ interface AppProps {
 
 function App({ initialLanguage = 'en' }: AppProps) {
   const [lang, setLang] = useState<'en' | 'ar'>(initialLanguage);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     // Synchronize HTML dir attribute and lang for RTL support & SEO
@@ -44,7 +53,7 @@ function App({ initialLanguage = 'en' }: AppProps) {
       document.title = "Leading Sandwich Panels Supplier in Saudi Arabia | Ghosh Group";
     }
 
-    // Update URL without reloading to keep language state on refresh
+    // Update URL without reloading
     try {
       const url = new URL(window.location.href);
       if (lang === 'ar') {
@@ -56,6 +65,8 @@ function App({ initialLanguage = 'en' }: AppProps) {
     } catch (e) {
       console.warn("Could not update URL state:", e);
     }
+    
+    setIsLoaded(true);
   }, [lang]);
 
   const toggleLanguage = () => {
@@ -63,22 +74,26 @@ function App({ initialLanguage = 'en' }: AppProps) {
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
+  if (!isLoaded) return <div className="min-h-screen bg-stone-50" />;
+
   if (lang === 'ar') {
     return (
       <div className="min-h-screen bg-stone-50 font-sans" dir="rtl" style={{ fontFamily: '"Tajawal", sans-serif' }}>
-        <TopStripAr onLanguageSwitch={toggleLanguage} />
-        <main>
-          <HeroAr />
-          <FeaturesAr />
-          <ProjectGalleryAr />
-          <CertificationsAr />
-          <ProductSectionAr />
-          <ProjectsDeliveryAr />
-          <TestimonialsAr />
-          <FAQAr />
-        </main>
-        <FooterAr />
-        <StickyCTAAr />
+        <Suspense fallback={<SectionLoader />}>
+          <TopStripAr onLanguageSwitch={toggleLanguage} />
+          <main>
+            <HeroAr />
+            <FeaturesAr />
+            <ProjectGalleryAr />
+            <CertificationsAr />
+            <ProductSectionAr />
+            <ProjectsDeliveryAr />
+            <TestimonialsAr />
+            <FAQAr />
+          </main>
+          <FooterAr />
+          <StickyCTAAr />
+        </Suspense>
       </div>
     );
   }
@@ -88,13 +103,15 @@ function App({ initialLanguage = 'en' }: AppProps) {
       <TopStrip onLanguageSwitch={toggleLanguage} />
       <main>
         <Hero />
-        <Features />
-        <ProjectGallery />
-        <Certifications />
-        <ProductSection />
-        <ProjectsDelivery />
-        <Testimonials />
-        <FAQ />
+        <Suspense fallback={<SectionLoader />}>
+          <Features />
+          <ProjectGallery />
+          <Certifications />
+          <ProductSection />
+          <ProjectsDelivery />
+          <Testimonials />
+          <FAQ />
+        </Suspense>
       </main>
       <Footer />
       <StickyCTA />
