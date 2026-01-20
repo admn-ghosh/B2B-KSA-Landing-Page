@@ -29,9 +29,7 @@ const HeroAr: React.FC = () => {
 
     try {
       if (db) {
-        // Writing to the 'mail' collection to trigger the Firebase Email extension
         await addDoc(collection(db, "mail"), {
-          // Extension Fields
           from: 'admin@ghoshgroups.com',
           to: ['parimal@ghoshgroups.com'],
           cc: ['admin@ghoshgroups.com'],
@@ -53,16 +51,7 @@ const HeroAr: React.FC = () => {
               </div>
             `
           },
-          // Record Data
-          leadData: {
-            fullName: formData.fullName,
-            companyName: formData.companyName,
-            email: formData.email,
-            mobile: formData.mobile,
-            projectCity: formData.projectCity,
-            panelType: formData.panelType,
-            areaQuantity: formData.areaQuantity
-          },
+          leadData: formData,
           submittedAt: serverTimestamp(),
           language: 'Arabic',
           source: window.location.hostname
@@ -91,7 +80,7 @@ const HeroAr: React.FC = () => {
   };
 
   const inputClasses = "block px-4 pb-2.5 pt-5 w-full text-base text-stone-900 bg-white rounded border border-stone-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer placeholder-transparent shadow-sm text-right";
-  const labelClasses = "absolute text-sm text-stone-500 duration-200 transform -translate-y-4 scale-75 top-4 z-10 origin-top-right right-4 peer-focus:text-emerald-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 pointer-events-none";
+  const labelClasses = "absolute text-sm text-stone-600 duration-200 transform -translate-y-4 scale-75 top-4 z-10 origin-top-right right-4 peer-focus:text-emerald-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 pointer-events-none font-medium";
 
   return (
     <section id="contact-us" className="bg-white py-8 md:py-16 bg-gradient-to-b from-stone-50 to-stone-100 relative scroll-mt-20" dir="rtl">
@@ -113,13 +102,13 @@ const HeroAr: React.FC = () => {
 
           <div className="lg:w-1/2 w-full" id="lead-form">
             <div 
-              className="bg-white shadow-xl rounded-lg border border-stone-200 p-6 md:p-8 flex flex-col justify-center"
+              className="bg-white shadow-xl rounded-lg border border-stone-200 p-6 md:p-8 flex flex-col justify-center transition-all"
               style={{ minHeight: '680px' }}
             >
               {submitted ? (
                 <div className="text-center animate-in fade-in zoom-in duration-500">
                   <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
                     </svg>
                   </div>
@@ -139,42 +128,42 @@ const HeroAr: React.FC = () => {
                   <h2 className="text-2xl md:text-3xl font-bold text-emerald-900 mb-6 text-right">احصل على أفضل سعر لمشروعك</h2>
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="relative">
-                      <input type="text" id="fullName" name="fullName" className={inputClasses} placeholder="محمد العتيبي" value={formData.fullName} onChange={handleChange} required />
-                      <label htmlFor="fullName" className={labelClasses}>الاسم الكامل <span className="text-red-600">*</span></label>
+                      <input type="text" id="fullNameAr" name="fullName" className={inputClasses} placeholder="محمد العتيبي" value={formData.fullName} onChange={handleChange} required aria-required="true" />
+                      <label htmlFor="fullNameAr" className={labelClasses}>الاسم الكامل <span className="text-red-600">*</span></label>
                     </div>
                     <div className="relative">
-                      <input type="text" id="companyName" name="companyName" className={inputClasses} placeholder="اسم الشركة" value={formData.companyName} onChange={handleChange} required />
-                      <label htmlFor="companyName" className={labelClasses}>اسم الشركة <span className="text-red-600">*</span></label>
+                      <input type="text" id="companyNameAr" name="companyName" className={inputClasses} placeholder="اسم الشركة" value={formData.companyName} onChange={handleChange} required aria-required="true" />
+                      <label htmlFor="companyNameAr" className={labelClasses}>اسم الشركة <span className="text-red-600">*</span></label>
                     </div>
                     <div className="relative">
-                      <input type="email" id="email" name="email" className={inputClasses} placeholder="email@company.com" value={formData.email} onChange={handleChange} required />
-                      <label htmlFor="email" className={labelClasses}>البريد الإلكتروني <span className="text-red-600">*</span></label>
+                      <input type="email" id="emailAr" name="email" className={inputClasses} placeholder="email@company.com" value={formData.email} onChange={handleChange} required aria-required="true" />
+                      <label htmlFor="emailAr" className={labelClasses}>البريد الإلكتروني <span className="text-red-600">*</span></label>
                     </div>
                     <div className="relative">
-                      <input type="text" id="mobile" name="mobile" className={inputClasses} placeholder="+966" value={formData.mobile} onChange={handleChange} required />
-                      <label htmlFor="mobile" className={labelClasses}>رقم الجوال <span className="text-red-600">*</span></label>
+                      <input type="text" id="mobileAr" name="mobile" className={inputClasses} placeholder="+966" value={formData.mobile} onChange={handleChange} required aria-required="true" />
+                      <label htmlFor="mobileAr" className={labelClasses}>رقم الجوال <span className="text-red-600">*</span></label>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div className="text-right">
-                        <label className="block text-sm font-medium text-stone-700 mb-1">المدينة <span className="text-red-600">*</span></label>
-                        <select name="projectCity" value={formData.projectCity} onChange={handleChange} required className="w-full rounded border-stone-300 p-3 border bg-white text-stone-900 text-right">
+                        <label htmlFor="projectCityAr" className="block text-sm font-semibold text-stone-700 mb-1">المدينة <span className="text-red-600">*</span></label>
+                        <select id="projectCityAr" name="projectCity" value={formData.projectCity} onChange={handleChange} required className="w-full rounded border-stone-300 p-3 border bg-white text-stone-900 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
                           <option value="">اختر المدينة</option>
                           {CITY_OPTIONS_AR.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
                         </select>
                       </div>
                       <div className="text-right">
-                        <label className="block text-sm font-medium text-stone-700 mb-1">النوع <span className="text-red-600">*</span></label>
-                        <select name="panelType" value={formData.panelType} onChange={handleChange} required className="w-full rounded border-stone-300 p-3 border bg-white text-stone-900 text-right">
+                        <label htmlFor="panelTypeAr" className="block text-sm font-semibold text-stone-700 mb-1">النوع <span className="text-red-600">*</span></label>
+                        <select id="panelTypeAr" name="panelType" value={formData.panelType} onChange={handleChange} required className="w-full rounded border-stone-300 p-3 border bg-white text-stone-900 text-right focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
                           <option value="">اختر النوع</option>
                           {PANEL_OPTIONS_AR.map(opt => <option key={opt.value} value={opt.label}>{opt.label}</option>)}
                         </select>
                       </div>
                     </div>
                     <div className="relative">
-                      <textarea id="areaQuantity" name="areaQuantity" value={formData.areaQuantity} onChange={handleChange} rows={2} className={inputClasses} placeholder="الكمية"></textarea>
-                      <label htmlFor="areaQuantity" className={labelClasses}>المساحة / الكمية التقريبية</label>
+                      <textarea id="areaQuantityAr" name="areaQuantity" value={formData.areaQuantity} onChange={handleChange} rows={2} className={inputClasses} placeholder="الكمية"></textarea>
+                      <label htmlFor="areaQuantityAr" className={labelClasses}>المساحة / الكمية التقريبية</label>
                     </div>
-                    <button type="submit" disabled={isSubmitting} className={`w-full py-4 rounded font-bold text-white text-lg transition-all shadow-md ${isSubmitting ? 'bg-emerald-500 opacity-70 cursor-not-allowed' : 'bg-emerald-700 hover:bg-emerald-800'}`}>
+                    <button type="submit" disabled={isSubmitting} className={`w-full py-4 rounded font-bold text-white text-lg transition-all shadow-md ${isSubmitting ? 'bg-emerald-500 opacity-70 cursor-not-allowed' : 'bg-emerald-700 hover:bg-emerald-800 active:scale-95'}`}>
                       {isSubmitting ? 'جاري الإرسال...' : 'احصل على عرض سعر الآن'}
                     </button>
                   </form>
