@@ -29,9 +29,7 @@ const Hero: React.FC = () => {
     
     try {
       if (db) {
-        // Writing to the 'mail' collection to trigger the Firebase Email extension
         await addDoc(collection(db, "mail"), {
-          // Extension Fields
           from: 'admin@ghoshgroups.com',
           to: ['parimal@ghoshgroups.com'],
           cc: ['admin@ghoshgroups.com'],
@@ -53,16 +51,7 @@ const Hero: React.FC = () => {
               </div>
             `
           },
-          // Record Data
-          leadData: {
-            fullName: formData.fullName,
-            companyName: formData.companyName,
-            email: formData.email,
-            mobile: formData.mobile,
-            projectCity: formData.projectCity,
-            panelType: formData.panelType,
-            areaQuantity: formData.areaQuantity
-          },
+          leadData: formData,
           submittedAt: serverTimestamp(),
           language: 'English',
           source: window.location.hostname
@@ -91,7 +80,7 @@ const Hero: React.FC = () => {
   };
 
   const inputClasses = "block px-4 pb-2.5 pt-5 w-full text-base text-stone-900 bg-white rounded border border-stone-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer placeholder-transparent focus:placeholder-stone-400 shadow-sm";
-  const labelClasses = "absolute text-sm text-stone-500 duration-200 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-emerald-700 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 pointer-events-none";
+  const labelClasses = "absolute text-sm text-stone-600 duration-200 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-emerald-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 pointer-events-none font-medium";
 
   return (
     <section id="contact-us" className="bg-white py-8 md:py-16 bg-gradient-to-b from-stone-50 to-stone-100 relative scroll-mt-20">
@@ -119,7 +108,7 @@ const Hero: React.FC = () => {
               {submitted ? (
                 <div className="text-center animate-in fade-in zoom-in duration-500">
                   <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
                     </svg>
                   </div>
@@ -140,32 +129,32 @@ const Hero: React.FC = () => {
                   </h2>
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="relative">
-                      <input type="text" id="fullName" name="fullName" className={inputClasses} placeholder="Name" value={formData.fullName} onChange={handleChange} required />
+                      <input type="text" id="fullName" name="fullName" className={inputClasses} placeholder="Name" value={formData.fullName} onChange={handleChange} required aria-required="true" />
                       <label htmlFor="fullName" className={labelClasses}>Full Name *</label>
                     </div>
                     <div className="relative">
-                      <input type="text" id="companyName" name="companyName" className={inputClasses} placeholder="Company" value={formData.companyName} onChange={handleChange} required />
+                      <input type="text" id="companyName" name="companyName" className={inputClasses} placeholder="Company" value={formData.companyName} onChange={handleChange} required aria-required="true" />
                       <label htmlFor="companyName" className={labelClasses}>Company Name *</label>
                     </div>
                     <div className="relative">
-                      <input type="email" id="email" name="email" className={inputClasses} placeholder="Email" value={formData.email} onChange={handleChange} required />
+                      <input type="email" id="email" name="email" className={inputClasses} placeholder="Email" value={formData.email} onChange={handleChange} required aria-required="true" />
                       <label htmlFor="email" className={labelClasses}>Email *</label>
                     </div>
                     <div className="relative">
-                      <input type="text" id="mobile" name="mobile" className={inputClasses} placeholder="Mobile" value={formData.mobile} onChange={handleChange} required />
+                      <input type="text" id="mobile" name="mobile" className={inputClasses} placeholder="Mobile" value={formData.mobile} onChange={handleChange} required aria-required="true" />
                       <label htmlFor="mobile" className={labelClasses}>Mobile *</label>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-1">City *</label>
-                        <select required name="projectCity" value={formData.projectCity} onChange={handleChange} className="w-full rounded border-stone-300 p-3 border bg-white">
+                        <label htmlFor="projectCity" className="block text-sm font-semibold text-stone-700 mb-1">City *</label>
+                        <select id="projectCity" name="projectCity" required value={formData.projectCity} onChange={handleChange} className="w-full rounded border-stone-300 p-3 border bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
                           <option value="">Select City</option>
                           {CITY_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-1">Panel *</label>
-                        <select required name="panelType" value={formData.panelType} onChange={handleChange} className="w-full rounded border-stone-300 p-3 border bg-white">
+                        <label htmlFor="panelType" className="block text-sm font-semibold text-stone-700 mb-1">Panel *</label>
+                        <select id="panelType" name="panelType" required value={formData.panelType} onChange={handleChange} className="w-full rounded border-stone-300 p-3 border bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all">
                           <option value="">Select Type</option>
                           {PANEL_OPTIONS.map(opt => <option key={opt.value} value={opt.label}>{opt.label}</option>)}
                         </select>
@@ -175,7 +164,7 @@ const Hero: React.FC = () => {
                       <textarea id="areaQuantity" name="areaQuantity" value={formData.areaQuantity} onChange={handleChange} rows={2} className={inputClasses} placeholder="Quantity"></textarea>
                       <label htmlFor="areaQuantity" className={labelClasses}>Quantity / M²</label>
                     </div>
-                    <button type="submit" disabled={isSubmitting} className={`w-full py-4 px-6 rounded font-bold text-white text-lg transition-all shadow-md ${isSubmitting ? 'bg-emerald-500 opacity-70' : 'bg-emerald-700 hover:bg-emerald-800'}`}>
+                    <button type="submit" disabled={isSubmitting} className={`w-full py-4 px-6 rounded font-bold text-white text-lg transition-all shadow-md ${isSubmitting ? 'bg-emerald-500 opacity-70 cursor-not-allowed' : 'bg-emerald-700 hover:bg-emerald-800 active:scale-95'}`}>
                       {isSubmitting ? 'Processing...' : 'Get Quotation Now'}
                     </button>
                   </form>
