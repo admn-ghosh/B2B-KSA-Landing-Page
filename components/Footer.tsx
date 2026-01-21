@@ -18,10 +18,10 @@ const Footer: React.FC = () => {
           </p>
         </div>
 
-        <p className="max-w-xl mx-auto text-sm md:text-base text-emerald-500 border-t border-emerald-900 pt-8 mt-8">
+        <p className="max-w-xl mx-auto text-sm md:text-base text-emerald-300 border-t border-emerald-900 pt-8 mt-8">
           Supply to: NEOM, Riyadh, Jeddah, Dammam, Al Khobar and other Saudi cities
         </p>
-        <div className="mt-4 text-sm text-emerald-600">
+        <div className="mt-4 text-sm text-emerald-400 font-medium">
            &copy; {new Date().getFullYear()} Ghosh Group. All rights reserved.
         </div>
       </div>
