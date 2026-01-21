@@ -75,7 +75,6 @@ const ProjectGallery: React.FC = () => {
                   width="1024"
                   height="576"
                   loading={index === 0 ? "eager" : "lazy"}
-                  // fetchPriority with capital P is for React compatibility
                   fetchPriority={index === 0 ? "high" : "auto"}
                   decoding={index === 0 ? "sync" : "async"}
                 />
