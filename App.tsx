@@ -1,15 +1,18 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import TopStrip from './components/TopStrip';
 import Hero from './components/Hero';
+import ProjectGallery from './components/ProjectGallery'; // Direct import for LCP optimization
 import Footer from './components/Footer';
 import StickyCTA from './components/StickyCTA';
 
-// Lazy load components below the fold to improve initial bundle size and TBT
+// Arabic Gallery also imported directly to ensure speed when switching
+import ProjectGalleryAr from './ar/ProjectGallery';
+
+// Lazy load components below the fold
 const Features = lazy(() => import('./components/Features'));
 const Certifications = lazy(() => import('./components/Certifications'));
 const ProductSection = lazy(() => import('./components/ProductSection'));
 const ProjectsDelivery = lazy(() => import('./components/ProjectsDelivery'));
-const ProjectGallery = lazy(() => import('./components/ProjectGallery'));
 const Testimonials = lazy(() => import('./components/Testimonials'));
 const FAQ = lazy(() => import('./components/FAQ'));
 
@@ -20,7 +23,6 @@ const FeaturesAr = lazy(() => import('./ar/Features'));
 const CertificationsAr = lazy(() => import('./ar/Certifications'));
 const ProductSectionAr = lazy(() => import('./ar/ProductSection'));
 const ProjectsDeliveryAr = lazy(() => import('./ar/ProjectsDelivery'));
-const ProjectGalleryAr = lazy(() => import('./ar/ProjectGallery'));
 const TestimonialsAr = lazy(() => import('./ar/Testimonials'));
 const FAQAr = lazy(() => import('./ar/FAQ'));
 const FooterAr = lazy(() => import('./ar/Footer'));
@@ -42,18 +44,15 @@ function App({ initialLanguage = 'en' }: AppProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Synchronize HTML dir attribute and lang for RTL support & SEO
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
     
-    // Update Document Title
     if (lang === 'ar') {
       document.title = "مورد رائد للألواح العازلة في السعودية | مجموعة غوش";
     } else {
       document.title = "Leading Sandwich Panels Supplier in Saudi Arabia | Ghosh Group";
     }
 
-    // Update URL without reloading
     try {
       const url = new URL(window.location.href);
       if (lang === 'ar') {
@@ -83,8 +82,8 @@ function App({ initialLanguage = 'en' }: AppProps) {
           <TopStripAr onLanguageSwitch={toggleLanguage} />
           <main>
             <HeroAr />
-            <FeaturesAr />
             <ProjectGalleryAr />
+            <FeaturesAr />
             <CertificationsAr />
             <ProductSectionAr />
             <ProjectsDeliveryAr />
@@ -103,9 +102,9 @@ function App({ initialLanguage = 'en' }: AppProps) {
       <TopStrip onLanguageSwitch={toggleLanguage} />
       <main>
         <Hero />
+        <ProjectGallery /> {/* Optimized position */}
         <Suspense fallback={<SectionLoader />}>
           <Features />
-          <ProjectGallery />
           <Certifications />
           <ProductSection />
           <ProjectsDelivery />
