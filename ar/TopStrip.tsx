@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 
 interface TopStripArProps {
   onLanguageSwitch?: () => void;
@@ -57,9 +56,9 @@ const TopStripAr: React.FC<TopStripArProps> = ({ onLanguageSwitch }) => {
           <img 
             src="https://ghoshgroups.com/lp/logo.png" 
             alt="شعار مجموعة غوش" 
-            className="h-12 md:h-14 w-auto" 
-            width="220" 
-            height="56"
+            className="h-10 w-auto" 
+            width="120" 
+            height="40"
             fetchPriority="high"
             decoding="async"
           />
@@ -80,16 +79,17 @@ const TopStripAr: React.FC<TopStripArProps> = ({ onLanguageSwitch }) => {
         </nav>
 
         {/* Left Actions */}
-        <div className="flex items-center gap-4">
-          <div className="hidden sm:block">
-            <button 
-              onClick={handleLanguageSwitch}
-              className="flex items-center gap-2 text-xs border border-white/30 rounded-full px-4 py-1.5 hover:bg-white/10 transition-all font-bold whitespace-nowrap focus:outline-none cursor-pointer"
-              type="button"
-            >
-              <span>English 🌐</span>
-            </button>
-          </div>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <button 
+            onClick={handleLanguageSwitch}
+            className="flex items-center gap-2 text-[11px] sm:text-xs border border-white/30 rounded-full px-3 py-1.5 sm:px-4 sm:py-1.5 hover:bg-white/10 transition-all font-bold whitespace-nowrap focus:outline-none cursor-pointer"
+            type="button"
+            title="Switch to English"
+          >
+            <Globe size={16} className="text-amber-400" />
+            <span className="hidden xs:inline">English</span>
+            <span className="xs:hidden">EN</span>
+          </button>
 
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -118,15 +118,6 @@ const TopStripAr: React.FC<TopStripArProps> = ({ onLanguageSwitch }) => {
               {item.name}
             </button>
           ))}
-          <div className="mt-4 pt-6 border-t border-emerald-900 sm:hidden">
-             <button 
-              onClick={handleLanguageSwitch}
-              className="w-full flex items-center justify-center gap-2 text-base border border-amber-400/50 text-amber-400 rounded-lg px-4 py-4 hover:bg-white/5 transition-all font-bold focus:outline-none cursor-pointer"
-              type="button"
-            >
-              <span>English 🌐 الانتقال للغة الإنجليزية</span>
-            </button>
-          </div>
         </nav>
       </div>
     </header>
