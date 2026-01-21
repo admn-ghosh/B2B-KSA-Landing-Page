@@ -87,11 +87,11 @@ const Hero: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-12 items-start">
           <div className="lg:w-1/2 pt-4">
-            <h1 className="text-3xl md:text-4xl lg:text-[40px] font-bold text-emerald-950 leading-tight mb-6">
-              Leading Sandwich Panel Supplier in Saudi Arabia for NEOM, Riyadh & Jeddah Projects
+            <h1 className="text-2xl md:text-3xl lg:text-[34px] font-bold text-emerald-950 leading-tight mb-6">
+              Ghosh Group is the primary sandwich panel supplier in Saudi Arabia, supporting contractors and consultants across NEOM, Riyadh, Jeddah, and beyond. It is a top DCD‑approved manufacturer of panels in Dubai.
             </h1>
             <p className="text-lg md:text-xl text-stone-700 mb-6 leading-relaxed">
-              Ghosh Group is a DCD‑approved manufacturer and the primary sandwich panel supplier in Saudi Arabia, supporting contractors and consultants across NEOM, Riyadh, Jeddah, and beyond.
+              We provide DCD‑approved manufacturing solutions, supporting infrastructure projects with high-quality PIR, PUR, and Rockwool sandwich panels delivered throughout the Kingdom.
             </p>
             <div className="bg-emerald-50 border-l-4 border-emerald-700 p-6 mb-8">
               <p className="font-semibold text-emerald-900 text-base md:text-lg">
