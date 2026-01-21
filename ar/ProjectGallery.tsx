@@ -29,9 +29,9 @@ const ProjectGalleryAr: React.FC = () => {
                   width="1024"
                   height="576"
                   loading={index === 0 ? "eager" : "lazy"}
-                  // Fix: fetchpriority -> fetchPriority
+                  // Correcting casing to fetchPriority for React
                   fetchPriority={index === 0 ? "high" : "auto"}
-                  decoding="async"
+                  decoding={index === 0 ? "sync" : "async"}
                 />
                 <div className="absolute bottom-0 right-0 w-full bg-gradient-to-t from-black/80 p-6 text-white text-right">
                    <div className="border-r-4 border-emerald-500 pr-4">
@@ -43,10 +43,10 @@ const ProjectGalleryAr: React.FC = () => {
             ))}
           </div>
           
-          <button onClick={nextSlide} className="absolute top-1/2 left-4 -translate-y-1/2 z-20 bg-emerald-600/90 text-white p-3 rounded-full opacity-80 hover:opacity-100" aria-label="Next">
+          <button onClick={nextSlide} className="absolute top-1/2 left-4 -translate-y-1/2 z-20 bg-emerald-600/90 text-white p-3 rounded-full opacity-80 hover:opacity-100" aria-label="Next" type="button">
             <ChevronLeft size={28} />
           </button>
-          <button onClick={prevSlide} className="absolute top-1/2 right-4 -translate-y-1/2 z-20 bg-emerald-600/90 text-white p-3 rounded-full opacity-80 hover:opacity-100" aria-label="Previous">
+          <button onClick={prevSlide} className="absolute top-1/2 right-4 -translate-y-1/2 z-20 bg-emerald-600/90 text-white p-3 rounded-full opacity-80 hover:opacity-100" aria-label="Previous" type="button">
             <ChevronRight size={28} />
           </button>
         </div>
