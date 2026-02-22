@@ -92,7 +92,7 @@ const HeroAr: React.FC = () => {
   const labelClasses = "absolute text-sm text-stone-600 duration-200 transform -translate-y-4 scale-75 top-4 z-10 origin-top-right right-4 peer-focus:text-emerald-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 pointer-events-none font-medium";
 
   return (
-    <section className="relative min-h-screen bg-[#f5f2eb] flex items-center" dir="rtl">
+    <section id="lead-form" className="relative min-h-screen bg-[#f5f2eb] flex items-center" dir="rtl">
       <div className="container mx-auto px-4 py-16 lg:py-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 text-right">
