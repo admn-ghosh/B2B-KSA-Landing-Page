@@ -78,7 +78,7 @@ const Hero: React.FC = () => {
       setIsSubmitting(false);
       setSubmitted(true);
       setTimeout(() => {
-        window.location.href = `https://ghoshgroups.com/thank-you/?email=${encodeURIComponent(formData.email)}&name=${encodeURIComponent(formData.fullName)}`;
+              window.location.href = 'https://ghoshgroups.com/thank-you/';
       }, 3000);
 
     } catch (error) {
